@@ -76,9 +76,9 @@ cursor = db.cursor()
 
 # Define the available animals as a dictionary
 animals = {
-    "Lion": {"price": 100, "image": ":lion_face:", "slot": "1", "quantity": 0},
-    "Tiger": {"price": 80, "image": ":tiger:", "slot": "2", "quantity": 0},
-    "Bear": {"price": 120, "image": ":bear:", "slot": "3", "quantity": 0}
+    "Lion": {"price": 100, "kind": "carn", "image": ":lion_face:", "slot": "1", "quantity": 0},
+    "Tiger": {"price": 80, "kind": "carn", "image": ":tiger:", "slot": "2", "quantity": 0},
+    "Bear": {"price": 120, "kind": "carn", "image": ":bear:", "slot": "3", "quantity": 0}
 }
 
 # Initialize a dictionary to store player data in memory
@@ -126,7 +126,7 @@ async def link(ctx, steam_id: str = None):
         await ctx.send(embed=embed)
         return
 
-     # Check if steam_id is exactly 17 characters long
+    # Check if steam_id is exactly 17 characters long
     if len(steam_id) != 17:
         embed = discord.Embed(title="Kruger National Park �鴂�", description="Steam ID must be exactly 17 characters long.", color=0xff0000)
         await ctx.send(embed=embed)
