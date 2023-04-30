@@ -1,4 +1,9 @@
 from import_lib import *
+# ENV
+from dotenv import load_dotenv
+load_dotenv()
+
+TOKEN = os.getenv("TOKEN")
 
 
 # Connect to the database
@@ -17,6 +22,6 @@ async def load():
 
 async def main():
     await load()
-    await bot.start("MTAwMDEyMzY1NjI3NTUxMzM4NA.GgPdrB.nwizaiJpUNt2DhQMH9ht0fBZ5ryixxFuAbxbw8")
+    await bot.start(TOKEN)
 
 asyncio.run(main())

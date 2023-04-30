@@ -1,3 +1,4 @@
+# Discord stuff
 import discord
 from discord import Embed
 from discord import Game

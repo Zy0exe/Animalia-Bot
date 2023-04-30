@@ -20,6 +20,12 @@ import datetime
 import traceback
 import shutil
 
+# ENV
+from dotenv import load_dotenv
+load_dotenv()
+
+TOKEN = os.getenv("TOKEN")
+
 # Connect to the database
 db = mysql.connector.connect(
     host="localhost", user="root", password="", database="kruger_park"
@@ -1053,4 +1059,4 @@ async def on_ready():
 
 
 # Run the bot
-bot.run("TOKENHERE")
+bot.run(TOKEN)
