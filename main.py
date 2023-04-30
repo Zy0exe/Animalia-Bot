@@ -1053,4 +1053,4 @@ async def on_ready():
 
 
 # Run the bot
-bot.run("MTEwMDkxMjExMzg2NzgyNTE4NA.GmzEe0.lqxC_S98JDdBceNlL_8SaoiZx5EMFy0Av3ozXA")
+bot.run("TOKENHERE")
