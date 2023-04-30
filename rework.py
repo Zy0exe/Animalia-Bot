@@ -1,25 +1,4 @@
-# Discord stuff
-import discord
-from discord import Embed
-from discord import Game
-from discord.ext import commands
-from discord.ext.commands import cooldown
-
-# Steam Stuff
-import steam
-from steam import steamid
-
-# SQL Stuff
-import mysql.connector
-
-## More needed stuff
-import json
-import random
-import os
-import datetime
-import traceback
-import shutil
-import asyncio
+from import_lib import *
 
 
 # Connect to the database
@@ -38,6 +17,6 @@ async def load():
 
 async def main():
     await load()
-    await bot.start("TOKENHERE")
+    await bot.start("MTAwMDEyMzY1NjI3NTUxMzM4NA.GgPdrB.nwizaiJpUNt2DhQMH9ht0fBZ5ryixxFuAbxbw8")
 
 asyncio.run(main())
