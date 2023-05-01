@@ -4,9 +4,11 @@
 ##Discord: https://discord.gg/J83pdF5RAr
 
 Q: What does this bot do?
+
 A: This bot allows players to buy animals by using a work command that gives them coins randomly from 500-2000 this command can only be executed every 2 hours.
 
 Q: Any special Features?
+
 A: YES I'LL LIST THEM!
 
 **Owner/Dev Features:**
