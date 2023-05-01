@@ -1,8 +1,8 @@
 # Animalia Bot
 
-##A discord bot for the game Animalia##
+## A discord bot for the game Animalia
 
-##Discord: https://discord.gg/J83pdF5RAr##
+## Discord: https://discord.gg/J83pdF5RAr
 
 Q: What does this bot do?
 
