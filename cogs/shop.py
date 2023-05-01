@@ -1,24 +1,6 @@
 from functions import *
 from import_lib import *
 
-animals = {
-    "Lion": {
-        "price": 100,
-        "image": ":lion_face:",
-        "slot": "1",
-        "quantity": 0,
-        "gender": "",
-    },
-    "Tiger": {
-        "price": 80,
-        "image": ":tiger:",
-        "slot": "2",
-        "quantity": 0,
-        "gender": "",
-    },
-    "Bear": {"price": 120, "image": ":bear:", "slot": "3", "quantity": 0, "gender": ""},
-}
-
 class shop(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -56,7 +38,7 @@ class shop(commands.Cog):
         for animal, data in animals.items():
             shop_message += f"{data['image']}{animal}: {data['price']} :coin:\n"
         embed = discord.Embed(
-            title="Kruger National Park 🤖", description=shop_message, color=0x00FF00
+            title="Kruger National Park 🤖", description=shop_message, color=0xf1c40f
         )
         embed.add_field(name="Your coins", value=f":coin:`{current_balance}`", inline=False)
 

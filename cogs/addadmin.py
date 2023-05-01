@@ -47,7 +47,7 @@ class addadmin(commands.Cog):
         # Add the Steam ID to the "AdminList" text file
         with open("AdminList.txt", "a") as f:
             f.write(player_data[0] + "\n")
-        user = bot.get_user(discord_id)
+        user = await self.bot.fetch_user(discord_id)
         if user:
             embed = discord.Embed(
                 title="Kruger National Park 🤖",

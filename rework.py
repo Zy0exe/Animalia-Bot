@@ -1,4 +1,6 @@
 from import_lib import *
+
+
 # ENV
 from dotenv import load_dotenv
 load_dotenv()
@@ -18,10 +20,49 @@ bot = commands.Bot(command_prefix="!", help_command=None, intents=discord.Intent
 async def load():
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
-            await bot.load_extension(f'cogs.{filename[:-3]}')
+            try:
+                await bot.load_extension(f'cogs.{filename[:-3]}')
+                print(f'{filename[:-3]} loaded successfully!')
+            except Exception as e:
+                print(f'{filename} could not be loaded. [{e}]')
+
 
 async def main():
     await load()
     await bot.start(TOKEN)
 
-asyncio.run(main())
+
+async def on_ready():
+    print('Bot is Online!')
+
+bot.add_listener(on_ready)
+
+
+async def on_disconnect():
+    await db.close()
+    print('Disconnected from database.')
+
+bot.add_listener(on_disconnect)
+
+
+async def on_error(event, *args, **kwargs):
+    print(f'An error occurred in {event}. [{args}, {kwargs}]')
+
+bot.add_listener(on_error)
+
+
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        return
+    embed = discord.Embed(
+        title="Kruger National Park 🤖",
+        description=f"An error occurred while running the command:\n\n{str(error)}",
+        color=0xFF0000,
+    )
+    await ctx.send(embed=embed)
+
+bot.add_listener(on_command_error)
+
+
+if __name__ == '__main__':
+    asyncio.run(main())

@@ -15,7 +15,6 @@ class removeadmin(commands.Cog):
                 color=0xFF0000,
             )
             await ctx.send(embed=embed)
-            # await ctx.send("You do not have permission to use this command.")
             return
 
         # Check if there is an actual discord id
@@ -46,18 +45,18 @@ class removeadmin(commands.Cog):
             for line in admin_list:
                 if player_data[0] not in line:
                     f.write(line)
-        user = bot.get_user(discord_id)
+        user = self.bot.get_user(discord_id) # <--- Here's the correction
         if user:
             embed = discord.Embed(
                 title="Kruger National Park 🤖",
-                description=f"Admin List {user.mention} | has been removed to the admin list.",
+                description=f"Admin List {user.mention} has been removed from the admin list.",
                 color=0x2ECC71,
             )
             await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
                 title="Kruger National Park 🤖",
-                description=f"User with ID {discord_id} has been removed to the admin list.",
+                description=f"User with ID {discord_id} has been removed from the admin list.",
                 color=0x2ECC71,
             )
             await ctx.send(embed=embed)

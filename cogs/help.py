@@ -7,7 +7,7 @@ class help(commands.Cog):
 
     @commands.command()
     async def help(self, ctx):
-        embed = Embed(title="Kruger National Park 🤖", color=0x00FF00)
+        embed = Embed(title="Kruger National Park 🤖", color=0xf1c40f)
         embed.add_field(
             name="!link [steam_id]",
             value="Link your Steam account to your Discord account.",

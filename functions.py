@@ -1,6 +1,24 @@
 from functions import *
 from import_lib import *
 
+animals = {
+    "Lion": {
+        "price": 100,
+        "image": ":lion_face:",
+        "slot": "1",
+        "quantity": 0,
+        "gender": "",
+    },
+    "Tiger": {
+        "price": 80,
+        "image": ":tiger:",
+        "slot": "2",
+        "quantity": 0,
+        "gender": "",
+    },
+    "Bear": {"price": 120, "image": ":bear:", "slot": "3", "quantity": 0, "gender": ""},
+}
+
 # Connect to the database
 db = mysql.connector.connect(
     host="localhost", user="root", password="", database="kruger_park"
