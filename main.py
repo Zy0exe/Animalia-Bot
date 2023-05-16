@@ -33,8 +33,8 @@ async def main():
 
 
 async def on_ready():
-    await bot.change_presence(activity=discord.Game(name="!help"))
     print('Bot is Online!')
+    await bot.change_presence(activity=discord.Game(name="!help"))
 
 bot.add_listener(on_ready)
 

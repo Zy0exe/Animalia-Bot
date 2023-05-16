@@ -3,20 +3,101 @@ from import_lib import *
 
 animals = {
     "Lion": {
-        "price": 100,
-        "image": ":lion_face:",
+        "price": "30.000",
+        "image": "<:lionm:1102545517398986812>",
         "slot": "1",
         "quantity": 0,
         "gender": "",
+        "kind": "carn"
     },
-    "Tiger": {
-        "price": 80,
-        "image": ":tiger:",
+    "Croc": {
+        "price": "25.000",
+        "image": "<:Z_Croc:1102543258866958386>",
         "slot": "2",
         "quantity": 0,
         "gender": "",
+        "kind": "carn"
     },
-    "Bear": {"price": 120, "image": ":bear:", "slot": "3", "quantity": 0, "gender": ""},
+    "Ele": {
+        "price": "25.000", 
+        "image": "<a:elephants:1102543255540867163>", 
+        "slot": "3", 
+        "quantity": 0, 
+        "gender": "",
+        "kind": "herb"
+    },
+    "Giraffe": {
+        "price": "20.000", 
+        "image": "<:raffe:1102543262109147196>", 
+        "slot": "4", 
+        "quantity": 0, 
+        "gender": "",
+        "kind": "herb"
+    },
+    "Hippo": {
+        "price": "20.000", 
+        "image": "<:hippo:1102543257575104584>", 
+        "slot": "5", 
+        "quantity": 0, 
+        "gender": "",
+        "kind": "herb"
+    },
+    "Hyena": {
+        "price": "15.000", 
+        "image": "<:hyena_awwo:1102543253288525844>", 
+        "slot": "6", 
+        "quantity": 0, 
+        "gender": "",
+        "kind": "carn"
+    },
+    "Leo": {
+        "price": "20.000", 
+        "image": "<:leopardk:1102543260016185486>", 
+        "slot": "3", 
+        "quantity": 0, 
+        "gender": "",
+        "kind": "carn"
+    },
+    "Meerkat": {
+        "price": "3.000", 
+        "image": "<:meerkat:1102546538842046484>", 
+        "slot": "3", 
+        "quantity": 0, 
+        "gender": "",
+        "kind": "herb"
+    },
+    "Rhino": {
+        "price": "20.000", 
+        "image": "<:Rhino:1102543251547897968>", 
+        "slot": "3", 
+        "quantity": 0, 
+        "gender": "",
+        "kind": "herb"
+    },
+    "WB": {
+        "price": "15.000", 
+        "image": "<:770291595232411678:1102543426718814248>", 
+        "slot": "3", 
+        "quantity": 0, 
+        "gender": "",
+        "kind": "herb"
+    },
+    "Wilddog": {
+        "price": "20.000", 
+        "image": "<:WildDog:1102543249316519986>", 
+        "slot": "3", 
+        "quantity": 0, 
+        "gender": "",
+        "kind": "carn"
+    },
+    "Zebra": {
+        "price": "15.000", 
+        "image": "<:Zebra:1102543263258386492>", 
+        "slot": "3", 
+        "quantity": 0, 
+        "gender": "",
+        "kind": "herb"
+    },
 }
 
 # Connect to the database
@@ -26,7 +107,7 @@ db = mysql.connector.connect(
 
 # Where the bot can be used
 def in_animal_shop(ctx):
-    return ctx.channel.name == "bot-testing"
+    return ctx.channel.name == "bot-commands"
 
 # object hook
 def object_hook(d):
