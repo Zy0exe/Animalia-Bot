@@ -8,7 +8,7 @@ class inject(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    #@commands.check(in_animal_shop)
+    @commands.check(in_animal_shop)
     async def inject(self, ctx, animal: str = None, gender: str = None, slot: int = None):
         if animal is None:
             embed = discord.Embed(
@@ -103,7 +103,7 @@ class inject(commands.Cog):
             return
 
         # Inject the animal into the game using the specified slot
-        folder_name = "PlayerData"
+        folder_name = "C:/servidores/animalia/AnimaliaSurvival/Saved/SaveGames/PlayerData/testLevel"
         player_folder = os.path.join(folder_name, steam_id)
         existing_file = os.path.join(player_folder, f"{steam_id}_{slot-1}.sav")
         if os.path.exists(existing_file):
@@ -146,7 +146,7 @@ class inject(commands.Cog):
                 return
 
         # Inject the animal into the game using the specified slot
-        file_name = f"AnimalTemplates/{animal}_{gender}.sav"
+        file_name = f"C:/servidores/animalia/AnimaliaSurvival/Animalia-Bot-Handler/AnimalTemplates/{animal}_{gender}.sav"
         new_file_name = f"{steam_id}_{slot-1}.sav"
         try:
             shutil.copy(file_name, new_file_name)

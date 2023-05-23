@@ -6,6 +6,7 @@ class addadmin(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.has_role(1101301737761030205)
     async def addadmin(self, ctx, discord_id: int = None):
         # Check if the user has permission to use the command
         if not ctx.author.guild_permissions.administrator:
@@ -45,7 +46,7 @@ class addadmin(commands.Cog):
             return
 
         # Add the Steam ID to the "AdminList" text file
-        with open("AdminList.txt", "a") as f:
+        with open("C:/servidores/animalia/AnimaliaSurvival/AdminList.txt", "a") as f:
             f.write(player_data[0] + "\n")
         user = await self.bot.fetch_user(discord_id)
         if user:

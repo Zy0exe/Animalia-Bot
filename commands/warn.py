@@ -35,7 +35,7 @@ class warn_player(commands.Cog):
             return
 
         # Check if the player is already banned
-        with open("banlist.txt", "r") as f:
+        with open("C:/servidores/animalia/AnimaliaSurvival/banlist.txt", "r") as f:
             banned_players = [line.strip() for line in f.readlines()]
         if str(player.id) in banned_players:
             embed = discord.Embed(

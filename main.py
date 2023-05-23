@@ -1,6 +1,5 @@
 from import_lib import *
 
-
 # ENV
 from dotenv import load_dotenv
 load_dotenv()
@@ -33,8 +32,8 @@ async def main():
 
 
 async def on_ready():
-    print('Bot is Online!')
     await bot.change_presence(activity=discord.Game(name="!help"))
+    print('Bot is Online!')
 
 bot.add_listener(on_ready)
 

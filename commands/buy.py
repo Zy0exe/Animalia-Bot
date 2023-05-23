@@ -1,31 +1,15 @@
 from functions import *
 from import_lib import *
 
-# @Zyo
+#this was the hardest for sure
 
 class buy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.check(in_animal_shop)
     @commands.command()
     async def buy(self, ctx, animal=None, gender=None):
-
-        # Check if the player exists in the database
-        db = mysql.connector.connect(
-            host="localhost", user="root", password="", database="kruger_park"
-        )
-        cursor = db.cursor()
-        cursor.execute("SELECT steam_id FROM players WHERE discord_id = %s", (discord_id,))
-        player_data = cursor.fetchone()
-        if player_data is None or player_data[0] is None:
-            embed = discord.Embed(
-                title="Kruger National Park 🤖",
-                description="This player does not exist or has not linked their Steam ID.",
-                color=0xFF0000,
-            )
-            await ctx.send(embed=embed)
-            return
-            
         if animal is None:
             embed = discord.Embed(
                 title="Kruger National Park 🤖",
@@ -40,8 +24,8 @@ class buy(commands.Cog):
             await ctx.send(f"{ctx.author.mention}, that animal does not exist.")
             return
 
-        # Check if the player has linked their Steam ID
         player_data = get_player_data(ctx.author.id)
+        # Check if the player has linked their Steam ID
         if player_data is None or player_data["steam_id"] is None:
             await ctx.send(
                 f"{ctx.author.mention}, you need to link your Steam ID first using the !link command."
@@ -50,12 +34,15 @@ class buy(commands.Cog):
 
         # Check if the player has enough coins to buy the animal
         animal_data = animals[animal]
-        price = animal_data["price"]
+        price = round(float(animal_data["price"]))  # convert price to float and round
         if player_data["coins"] < price:
+            print(f"DEBUG: {ctx.author} does not have enough coins to buy {animal}.")
+            print(f"DEBUG: {ctx.author} has {player_data['coins']} coins, but needs {price} coins.")
             await ctx.send(
                 f"{ctx.author.mention}, you don't have enough coins to buy this animal."
             )
             return
+
 
         # Deduct the cost of the animal from the player's balance
         new_balance = player_data["coins"] - price
@@ -65,7 +52,10 @@ class buy(commands.Cog):
         )
         db.commit()
 
-        # Add the animal to the player's collection
+        # Update the player's data with the new balance
+        player_data["coins"] = new_balance
+
+         # Add the animal to the player's collection
         player_animals = json.loads(player_data.get("animals") or "{}")
         if animal not in player_animals:
             player_animals[animal] = {

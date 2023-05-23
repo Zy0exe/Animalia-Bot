@@ -6,24 +6,9 @@ class coins(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.check(in_animal_shop)
     async def coins(self, ctx):
         try:
-             #Check if the player exists in the database
-            db = mysql.connector.connect(
-                host="localhost", user="root", password="", database="kruger_park"
-            )
-            cursor = db.cursor()
-            cursor.execute("SELECT steam_id FROM players WHERE discord_id = %s", (ctx.author.id,))
-            player_data = cursor.fetchone()
-            if player_data is None or player_data[0] is None:
-                embed = discord.Embed(
-                    title="Kruger National Park 🤖",
-                    description="You do not exist or have not linked your Steam ID. Please use the !link command to link your Steam account.",
-                    color=0xFF0000,
-                )
-                await ctx.send(embed=embed)
-                return
-
             # Get the user's balance from the database
             db = mysql.connector.connect(
                 host="localhost", user="root", password="", database="kruger_park"

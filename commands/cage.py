@@ -1,10 +1,17 @@
 from functions import *
 from import_lib import *
+from itertools import islice
+
+# Define the chunks function to split a list into smaller chunks
+def chunks(lst, n):
+    for i in range(0, len(lst), n):
+        yield lst[i:i + n]
 
 class cage(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.check(in_animal_shop)
     @commands.command()
     async def cage(self, ctx):
         # Retrieve player data from the database
@@ -17,7 +24,6 @@ class cage(commands.Cog):
 
         # Retrieve player's animal inventory from the database
         player_animals = get_player_animals(ctx.author.id)
-        print(player_animals)
 
         # Fix negative quantities
         for animal, data in player_animals.items():
@@ -25,33 +31,48 @@ class cage(commands.Cog):
                 data["quantity"] = 0
 
         # Generate the inventory message
-        inventory_embed = Embed(title=f"{ctx.author.display_name}'s cage", color=0xf1c40f)
-        inventory_embed.add_field(
-            name="Balance", value=f"{player_data['coins']} coins", inline=False
-        )
+        inventory_embed = Embed(title=f"{ctx.author.display_name}'s cage")
         inventory_embed.add_field(name="Animals", value="\u200b", inline=False)
 
         if player_animals:
-            for animal, data in player_animals.items():
-                if "image" in data:
-                    inventory_embed.add_field(
-                        name=f"{data['image']} {animal}",
-                        value=f"Quantity: {data.get('quantity', 'N/A')}",
-                        inline=False,
-                    )
-                else:
-                    inventory_embed.add_field(
-                        name=animal,
-                        value=f"Quantity: {data.get('quantity', 'N/A')}",
-                        inline=False,
-                    )
+            animal_chunks = list(chunks(list(player_animals.items()), 2))
+            for chunk in animal_chunks:
+                for animal, data in chunk:
+                    # Add animal's genders if specified
+                    if "genders" in data:
+                        males = 0
+                        females = 0
+                        for gender_data in data["genders"]:
+                            gender = gender_data["gender"]
+                            quantity = gender_data["quantity"]
+                            if gender == "M":
+                                males = quantity
+                            elif gender == "F":
+                                females = quantity
+                        inventory_embed.add_field(
+                            name=f"{animal}{' ' * (25 - len(animal))}",
+                            value=f"Male: {males}{' ' * (5 - len(str(males)))}\nFemale: {females}{' ' * (3 - len(str(females)))}\n\u200b",
+                            inline=True,
+                        )
+                    else:
+                        # If animal has no genders specified, show total quantity
+                        inventory_embed.add_field(
+                            name=f"{animal}{' ' * (25 - len(animal))}",
+                            value=f"Quantity: {data.get('quantity', 'N/A')}{' ' * (5 - len(str(data.get('quantity', 'N/A'))))}\n\u200b",
+                            inline=True,
+                        )
+                inventory_embed.add_field(
+                    name="\u200b", value="\u200b", inline=True
+                ) # add an empty field to separate rows
         else:
             inventory_embed.add_field(
                 name="Kruger National Park 🤖",
                 value="You don't have any animals yet.",
                 inline=False,
             )
+
         await ctx.send(embed=inventory_embed)
+
 
 async def setup(bot):
     await bot.add_cog(cage(bot))

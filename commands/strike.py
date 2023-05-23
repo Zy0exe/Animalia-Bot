@@ -70,7 +70,7 @@ class strike_player(commands.Cog):
 
         if strike_count == 2:
             # Ban the player and add their Steam ID to the banlist.txt file
-            with open("C:\servidores/animalia/AnimaliaSurvival/Saved/SaveGames/banlist.txt", "a") as f:
+            with open("C:/servidores/animalia/AnimaliaSurvival/banlist.txt", "a") as f:
                 f.write(steam_id + "\n")
             await ctx.send(f"{player.display_name} has been banned for reaching 2 strikes.")
         else:

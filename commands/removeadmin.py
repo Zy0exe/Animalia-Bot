@@ -39,9 +39,9 @@ class removeadmin(commands.Cog):
             return
 
         # Remove the Steam ID from the "AdminList" text file
-        with open("AdminList.txt", "r") as f:
+        with open("C:/servidores/animalia/AnimaliaSurvival/AdminsList.txt", "r") as f:
             admin_list = f.readlines()
-        with open("AdminList.txt", "w") as f:
+        with open("C:/servidores/animalia/AnimaliaSurvival/AdminsList.txt", "w") as f:
             for line in admin_list:
                 if player_data[0] not in line:
                     f.write(line)

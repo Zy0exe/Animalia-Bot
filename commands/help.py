@@ -6,12 +6,22 @@ class help(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.check(in_animal_shop)
     async def help(self, ctx):
         embed = Embed(title="Kruger National Park 🤖", color=0xf1c40f)
         embed.add_field(
             name="!link [steam_id]",
             value="Link your Steam account to your Discord account.",
             inline=False,
+        )
+        embed.add_field(
+            name="!player", value="See your/other player info.", inline=False
+        )
+        embed.add_field(
+            name="!pay", value="Give coins to other players.", inline=False
+        )
+        embed.add_field(
+            name="!coins", value="See your coins", inline=False
         )
         embed.add_field(
             name="!shop", value="Display the available animals for purchase.", inline=False

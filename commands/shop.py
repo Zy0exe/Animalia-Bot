@@ -6,22 +6,12 @@ class shop(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def shop(self, ctx, discord_id: int = None):
-        # Check if the player exists in the database
-        # db = mysql.connector.connect(
-        #     host="localhost", user="root", password="", database="kruger_park"
-        # )
-        # cursor = db.cursor()
-        # cursor.execute("SELECT steam_id FROM players WHERE discord_id = %s", (discord_id,))
-        # player_data = cursor.fetchone()
-        # if player_data is None or player_data[0] is None:
-        #     embed = discord.Embed(
-        #         title="Kruger National Park 🤖",
-        #         description="This player does not exist or has not linked their Steam ID.",
-        #         color=0xFF0000,
-        #     )
-        #     await ctx.send(embed=embed)
-        #     return
+    @commands.check(in_animal_shop)
+    async def shop(self, ctx):
+        # Check if the player has linked their Steam ID
+        db = mysql.connector.connect(
+            host="localhost", user="root", password="", database="kruger_park"
+        )
 
         cursor = db.cursor()
         cursor.execute("SELECT coins FROM players WHERE discord_id = %s", (ctx.author.id,))
@@ -44,22 +34,23 @@ class shop(commands.Cog):
             else ""
         )
 
-         # Shop message
-        herb = ""
-        carn = ""
+        # Shop message
+        shop_message = "Available animals for purchase:\n"
         for animal, data in animals.items():
-            animal_message = f"{data['image']}{animal}: {data['price']} :coin:\n"
-            if data["kind"] == "herb":
-                herb += animal_message
-            else:
-                carn += animal_message
-        
-        embed = discord.Embed(title="Kruger National Park 🤖", color=0xf1c40f)
-        embed.add_field(name="*Carnivores:*", value=carn, inline=True)
-        embed.add_field(name="*Herbivores:*", value=herb, inline=True)
+            shop_message += f"{data['image']}{animal}: {data['price']} :coin:\n"
+        embed = discord.Embed(
+            title="Kruger National Park 🤖", description=shop_message, color=0xf1c40f
+        )
         embed.add_field(name="Your coins", value=f":coin:`{current_balance}`", inline=False)
-        embed.add_field(name="*How to Buy*", value=f"Example: !buy 20 M or !buy 20 F", inline=False)
-        embed.add_field(name="*Subtitle*", value=f"M = Male \n F = Female", inline=False)
+
+        if owned_animals:
+            embed.add_field(name="Your owned animals", value=owned_animals, inline=False)
+
+        embed.add_field(
+            name="*How to Buy*", value=f"Example: !buy animal M or !buy animal F", inline=False
+        )
+        embed.add_field(name="*Note*", value=f"The animal name *NEEDS* to be the exact same as its shown in the shop!", inline=False)
+        embed.add_field(name="*Genders*", value=f"M = Male \n F = Female", inline=False)
 
         await ctx.send(embed=embed)
 
